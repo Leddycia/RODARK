@@ -88,9 +88,3 @@ python main.py
 ## 📝 Notes
 
 Le projet est actuellement en cours de développement ("in construction"). Il peut y avoir des erreurs occasionnelles ou des fonctionnalités partiellement implémentées (comme la gestion complète de la météo dans `main.py`).
-
----
-
-## ⚖️ Licence
-
-Ce projet est la propriété de son auteur. Voir le fichier de licence (si présent) pour plus de détails.
