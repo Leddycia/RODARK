@@ -25,15 +25,31 @@ def talk(text):
 
 def take_command():
     global cmd
-    with sr.Microphone() as source:
-        print('Clear background noises...')
-        listener.adjust_for_ambient_noise(source, duration=1)
-        print('ok')
-        talk('What can i do for you')
-        listener.pause_threshold = 0.5
-        voice = listener.listen(source)
-        cmd = listener.recognize_google(voice)
-        cmd = cmd.lower()
+    try:
+        with sr.Microphone() as source:
+            print('Clear background noises...')
+            # Ajuste le niveau du micro par rapport au bruit ambiant
+            listener.adjust_for_ambient_noise(source, duration=1)
+            print('ok')
+            talk('What can I do for you')
+            listener.pause_threshold = 0.5
+
+            # Écoute la voix
+            voice = listener.listen(source)
+
+            # Demande à Google de transcrire (par défaut en anglais)
+            cmd = listener.recognize_google(voice)
+            cmd = cmd.lower()
+
+    except sr.UnknownValueError:
+        # Google n'a pas compris l'audio (bruit, silence, ou mauvaise prononciation)
+        print("Audio non reconnu.")
+        cmd = ""  # On vide la commande pour que le programme ne plante pas
+
+    except sr.RequestError:
+        # Problème de connexion internet
+        print("Erreur de connexion avec les serveurs.")
+        cmd = ""
 
 
 def execute_Rodark():
